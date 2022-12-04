@@ -1,0 +1,41 @@
+version: '3'
+services:
+    # UI (REACT)
+    front:
+        container_name: front
+        build:
+            context: ./front
+        environment:
+            - MONGODB_CONNECTION=mongodb://root:rootpwd@mongodb
+            - MYSQL_HOST=mysqldb
+            - MYSQL_USER=root
+            - MYSQL_PWD=rootpwd
+        ports:
+            - '999:80'
+
+    # NoSQL (MONGO)
+    mongodb:
+        image: mongo
+        container_name: mongo
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: rootpwd
+        ports:
+            - '1111:27017'
+        volumes:
+            - ./config/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+            - ./mongo-volume:/data/db
+
+    # SQL (MYSQL)
+    mysqldb:
+        image: mysql
+        container_name: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: 'rootpwd'
+        ports:
+            - '2222:3306'
+        expose:
+            - '3306'
+        volumes:
+            - ./config/init-mysql.sql:/docker-entrypoint-initdb.d/init-mysql.sql
+            - ./mysql-volume:/var/lib/mysql
