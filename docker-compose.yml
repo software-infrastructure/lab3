@@ -5,13 +5,21 @@ services:
         container_name: front
         build:
             context: ./front
+        ports:
+            - '999:80'
+
+    # Backend (EXPRESS)
+    back:
+        container_name: back
+        build:
+            context: ./back
         environment:
             - MONGODB_CONNECTION=mongodb://someuser:somepwd@mongodb/main
             - MYSQL_HOST=mysqldb
             - MYSQL_USER=root
             - MYSQL_PWD=rootpwd
         ports:
-            - '999:80'
+            - '888:3001'
 
     # NoSQL (MONGO)
     mongodb:

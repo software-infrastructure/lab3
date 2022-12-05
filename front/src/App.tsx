@@ -1,8 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import List from './components/List';
+
+const sources = ['mongo', 'mysql'];
 
 function App() {
-    useEffect(() => {}, []);
-    return <div className="App">React App!</div>;
+    return (
+        <div className="flex w-1/2 m-auto justify-around">
+            {sources.map((s) => (
+                <List source={s} />
+            ))}
+        </div>
+    );
 }
 
 export default App;

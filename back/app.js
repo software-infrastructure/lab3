@@ -2,8 +2,10 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const productsRouter = require('./routes/ProductRoutes');
+const cors = require('cors');
 
 app.use(express.json());
+app.use(cors());
 
 mongoose.connect(
     process.env.MONGODB_CONNECTION ??
