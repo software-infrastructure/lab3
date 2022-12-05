@@ -1,4 +1,12 @@
-main = db.getSiblingDB('main');
-main.createCollection('products');
+db.createUser({
+    user: 'someuser',
+    pwd: 'somepwd',
+    roles: [
+        {
+            role: 'readWrite',
+            db: 'main',
+        },
+    ],
+});
 
-main.products.insertOne({ _id: 333, name: 'Tomato' });
+db.createCollection('products');
