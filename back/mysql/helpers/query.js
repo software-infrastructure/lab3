@@ -4,7 +4,7 @@ const mysql = require('mysql');
 async function query(sql) {
     const connection = await mysql.createConnection(config);
     connection.connect();
-    return new Promise(function (resolve, reject) {
+    const response = new Promise(function (resolve, reject) {
         connection.query(sql, function (err, rows) {
             if (rows === undefined) {
                 reject(new Error(err));
@@ -13,6 +13,8 @@ async function query(sql) {
             }
         });
     });
+    connection.end();
+    return response;
 }
 
 module.exports = query;

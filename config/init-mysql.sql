@@ -4,7 +4,7 @@ USE main;
 ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'rootpwd';
 
 CREATE TABLE Products (
-    id varchar(255),
+    _id varchar(255),
     name varchar(255)
 );
 
